@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application'
+}
+
+def keystoreProps = new Properties()
+def keystorePropsFile = rootProject.file('keystore.properties')
+if (keystorePropsFile.exists()) keystoreProps.load(new FileInputStream(keystorePropsFile))
+
+android {
+    namespace 'lol.yukichat.wallet'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'lol.yukichat.wallet'
+        minSdk 24
+        targetSdk 34
+        versionCode 7
+        versionName '1.6'
+        buildConfigField 'String', 'START_URL', '"https://wallet.yukichat.lol/app/"'
+        buildConfigField 'String', 'UPDATE_JSON', '"https://wallet.yukichat.lol/downloads/yukiwallet.json"'
+    }
+
+    buildFeatures { buildConfig true }
+
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile rootProject.file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.12.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+}

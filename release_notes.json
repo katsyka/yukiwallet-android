@@ -1,0 +1,7 @@
+{
+  "summary": "Payment notifications and a fresh look",
+  "changes": [
+    {"emoji": "🔔", "title": "Notifications", "items": ["Get a notification the moment YUKI arrives", "Reminder a week before a name.yuki expires", "Turn it on or off in Settings"]},
+    {"emoji": "✨", "title": "Redesign", "items": ["3D balance card with a QR on the back", "New Send, Receive, Names and Activity screens"]}
+  ]
+}
